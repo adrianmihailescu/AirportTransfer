@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AirportTransfer_TestModelStoreContainer" CdmEntityContainer="AirportTransfer_TestEntities">
+    <EntitySetMapping Name="Airport">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.Airport">
+        <MappingFragment StoreEntitySet="Airport">
+          <ScalarProperty Name="IDAirport" ColumnName="IDAirport" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CostCenter">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.CostCenter">
+        <MappingFragment StoreEntitySet="CostCenter">
+          <ScalarProperty Name="IDCostCenter" ColumnName="IDCostCenter" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="BusinessUnit" ColumnName="BusinessUnit" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Delegation">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.Delegation">
+        <MappingFragment StoreEntitySet="Delegation">
+          <ScalarProperty Name="IDDelegation" ColumnName="IDDelegation" />
+          <ScalarProperty Name="IDCostCenter" ColumnName="IDCostCenter" />
+          <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CNP" ColumnName="CNP" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Flight">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.Flight">
+        <MappingFragment StoreEntitySet="Flight">
+          <ScalarProperty Name="IDFlight" ColumnName="IDFlight" />
+          <ScalarProperty Name="IDAirportFrom" ColumnName="IDAirportFrom" />
+          <ScalarProperty Name="IDAirportTo" ColumnName="IDAirportTo" />
+          <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+          <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaxiBooking">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.TaxiBooking">
+        <MappingFragment StoreEntitySet="TaxiBooking">
+          <ScalarProperty Name="IDTaxiBooking" ColumnName="IDTaxiBooking" />
+          <ScalarProperty Name="IDTaxiCompany" ColumnName="IDTaxiCompany" />
+          <ScalarProperty Name="IDDelegation" ColumnName="IDDelegation" />
+          <ScalarProperty Name="IDFlight" ColumnName="IDFlight" />
+          <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
+          <ScalarProperty Name="ReservationTime" ColumnName="ReservationTime" />
+          <ScalarProperty Name="PickupAddress" ColumnName="PickupAddress" />
+          <ScalarProperty Name="DropAddress" ColumnName="DropAddress" />
+          <ScalarProperty Name="NumberOfPersons" ColumnName="NumberOfPersons" />
+          <ScalarProperty Name="PassengersName" ColumnName="PassengersName" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaxiCompany">
+      <EntityTypeMapping TypeName="AirportTransfer_TestModel.TaxiCompany">
+        <MappingFragment StoreEntitySet="TaxiCompany">
+          <ScalarProperty Name="IDTaxiCompany" ColumnName="IDTaxiCompany" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="FlagDel" ColumnName="FlagDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

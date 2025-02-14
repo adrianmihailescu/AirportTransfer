@@ -1,0 +1,82 @@
+USE [AirportTransfer]
+GO
+/****** Object:  Trigger [dbo].[t8_after_insert]    Script Date: 06/06/2013 18:27:05 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[t8_after_insert] on [dbo].[AirLine]
+after insert
+as
+begin
+	declare @message varchar(max)
+	select @message = cast(a.IDAirLine as nvarchar(1000))
+	+ ', ' + cast (isnull(a.Name, '') as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000))
+	from inserted a
+
+	exec LogOperation
+		'insert into'
+		, '[AirLine]'
+		, @message
+	
+	update [AirLine] set FlagDel = 0 where FlagDel is null
+end
+
+
+
+USE [AirportTransfer]
+GO
+/****** Object:  Trigger [dbo].[t8_after_update]    Script Date: 06/06/2013 18:27:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[t8_after_update] on [dbo].[AirLine] after UPDATE
+as
+begin
+	declare @message varchar(max)
+	select @message = cast(a.IDAirLine as nvarchar(1000))
+	+ ', ' + cast (isnull(a.Name, '') as nvarchar(1000))
+	+ ', ' + cast (isnull(a.FlagDel, '') as nvarchar(1000))
+	from inserted a
+	
+		exec LogOperation
+		'update'
+		, '[AirLine]'
+		, @message
+end
+
+
+
+USE [AirportTransfer]
+GO
+/****** Object:  Trigger [dbo].[t8_instead_of_delete]    Script Date: 06/06/2013 18:27:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[t8_instead_of_delete] on [dbo].[AirLine] instead of delete
+as
+begin
+			update [AirLine]
+	
+	set FlagDel = 1
+	
+	from [AirLine] a
+	
+	inner join deleted b
+	on a.IDAirLine = b.IDAirLine
+	
+	-- log operation
+	
+		declare @message varchar(max)
+	select @message = cast(a.IDAirLine as nvarchar(1000))
+	from deleted a
+	
+		-- log operation
+			exec LogOperation
+		'delete from'
+		, '[AirLine]'
+		, @message
+end

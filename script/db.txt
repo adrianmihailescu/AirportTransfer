@@ -1,0 +1,173 @@
+USE [AirportTransfer]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_Delegation]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_Delegation]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_Flight]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_Flight]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_TaxiCompany]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_TaxiCompany]
+GO
+
+USE [AirportTransfer]
+GO
+
+/****** Object:  Table [dbo].[TaxiBooking]    Script Date: 05/02/2013 18:04:53 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaxiBooking]') AND type in (N'U'))
+DROP TABLE [dbo].[TaxiBooking]
+GO
+
+USE [AirportTransfer]
+GO
+
+/****** Object:  Table [dbo].[TaxiBooking]    Script Date: 05/02/2013 18:04:53 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TaxiBooking](
+	[IDTaxiBooking] [int] IDENTITY(1,1) NOT NULL,
+	[IDTaxiCompany] [int] NOT NULL,
+	[IDDelegation] [int] NOT NULL,
+	[IDFlight] [int] NOT NULL,
+	[ReservationDate] [date] NOT NULL,
+	[ReservationTime] [time](7) NOT NULL,
+	[PickupAddress] [varchar](1000) NOT NULL,
+	[DropAddress] [varchar](1000) NOT NULL,
+	[NumberOfPersons] [int] NOT NULL,
+	[PassengersName] [varchar](4000) NOT NULL,
+	[Cost] [float] NULL,
+	[Currency] [varchar](100) NULL,
+	[Remarks] [varchar](1000) NULL,
+	[FlagDel] [bit] NULL,
+ CONSTRAINT [PK_TaxiBooking] PRIMARY KEY CLUSTERED 
+(
+	[IDTaxiBooking] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_Delegation] FOREIGN KEY([IDDelegation])
+REFERENCES [dbo].[Delegation] ([IDDelegation])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_Delegation]
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_Flight] FOREIGN KEY([IDFlight])
+REFERENCES [dbo].[Flight] ([IDFlight])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_Flight]
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_TaxiCompany] FOREIGN KEY([IDTaxiCompany])
+REFERENCES [dbo].[TaxiCompany] ([IDTaxiCompany])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_TaxiCompany]
+GO
+
+
+
+
+
+
+
+USE [AirportTransfer]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_Delegation]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_Delegation]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_Flight]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_Flight]
+GO
+
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_TaxiBooking_TaxiCompany]') AND parent_object_id = OBJECT_ID(N'[dbo].[TaxiBooking]'))
+ALTER TABLE [dbo].[TaxiBooking] DROP CONSTRAINT [FK_TaxiBooking_TaxiCompany]
+GO
+
+USE [AirportTransfer]
+GO
+
+/****** Object:  Table [dbo].[TaxiBooking]    Script Date: 05/02/2013 18:04:53 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[TaxiBooking]') AND type in (N'U'))
+DROP TABLE [dbo].[TaxiBooking]
+GO
+
+USE [AirportTransfer]
+GO
+
+/****** Object:  Table [dbo].[TaxiBooking]    Script Date: 05/02/2013 18:04:53 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TaxiBooking](
+	[IDTaxiBooking] [int] IDENTITY(1,1) NOT NULL,
+	[IDTaxiCompany] [int] NOT NULL,
+	[IDDelegation] [int] NOT NULL,
+	[IDFlight] [int] NOT NULL,
+	[ReservationDate] [date] NOT NULL,
+	[ReservationTime] [time](7) NOT NULL,
+	[PickupAddress] [varchar](1000) NOT NULL,
+	[DropAddress] [varchar](1000) NOT NULL,
+	[NumberOfPersons] [int] NOT NULL,
+	[PassengersName] [varchar](4000) NOT NULL,
+	[Cost] [float] NULL,
+	[Currency] [varchar](100) NULL,
+	[Remarks] [varchar](1000) NULL,
+	[FlagDel] [bit] NULL,
+ CONSTRAINT [PK_TaxiBooking] PRIMARY KEY CLUSTERED 
+(
+	[IDTaxiBooking] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_Delegation] FOREIGN KEY([IDDelegation])
+REFERENCES [dbo].[Delegation] ([IDDelegation])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_Delegation]
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_Flight] FOREIGN KEY([IDFlight])
+REFERENCES [dbo].[Flight] ([IDFlight])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_Flight]
+GO
+
+ALTER TABLE [dbo].[TaxiBooking]  WITH CHECK ADD  CONSTRAINT [FK_TaxiBooking_TaxiCompany] FOREIGN KEY([IDTaxiCompany])
+REFERENCES [dbo].[TaxiCompany] ([IDTaxiCompany])
+GO
+
+ALTER TABLE [dbo].[TaxiBooking] CHECK CONSTRAINT [FK_TaxiBooking_TaxiCompany]
+GO
+
+

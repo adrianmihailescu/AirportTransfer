@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AirportTransfer_TestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="AirportTransfer_TestModelStoreContainer">
+    <EntitySet Name="Airport" EntityType="AirportTransfer_TestModel.Store.Airport" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CostCenter" EntityType="AirportTransfer_TestModel.Store.CostCenter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Delegation" EntityType="AirportTransfer_TestModel.Store.Delegation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employee" EntityType="AirportTransfer_TestModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Flight" EntityType="AirportTransfer_TestModel.Store.Flight" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TaxiBooking" EntityType="AirportTransfer_TestModel.Store.TaxiBooking" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TaxiCompany" EntityType="AirportTransfer_TestModel.Store.TaxiCompany" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Delegation_CostCenter" Association="AirportTransfer_TestModel.Store.FK_Delegation_CostCenter">
+      <End Role="CostCenter" EntitySet="CostCenter" />
+      <End Role="Delegation" EntitySet="Delegation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Delegation_Employee" Association="AirportTransfer_TestModel.Store.FK_Delegation_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Delegation" EntitySet="Delegation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight_Airport" Association="AirportTransfer_TestModel.Store.FK_Flight_Airport">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight_Airport1" Association="AirportTransfer_TestModel.Store.FK_Flight_Airport1">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_Delegation" Association="AirportTransfer_TestModel.Store.FK_TaxiBooking_Delegation">
+      <End Role="Delegation" EntitySet="Delegation" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_Flight" Association="AirportTransfer_TestModel.Store.FK_TaxiBooking_Flight">
+      <End Role="Flight" EntitySet="Flight" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_TaxiCompany" Association="AirportTransfer_TestModel.Store.FK_TaxiBooking_TaxiCompany">
+      <End Role="TaxiCompany" EntitySet="TaxiCompany" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Airport">
+    <Key>
+      <PropertyRef Name="IDAirport" />
+    </Key>
+    <Property Name="IDAirport" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="varchar" Nullable="false" MaxLength="1103" StoreGeneratedPattern="Computed" />
+    <Property Name="Code" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="City" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Address" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="ContactPhone" Type="varchar" MaxLength="1000" />
+    <Property Name="Remarks" Type="varchar" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="CostCenter">
+    <Key>
+      <PropertyRef Name="IDCostCenter" />
+    </Key>
+    <Property Name="IDCostCenter" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="ProjectCode" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="BusinessUnit" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Reason" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="Delegation">
+    <Key>
+      <PropertyRef Name="IDDelegation" />
+    </Key>
+    <Property Name="IDDelegation" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDCostCenter" Type="int" Nullable="false" />
+    <Property Name="IDEmployee" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+    <Property Name="Details" Type="varchar" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="IDEmployee" />
+    </Key>
+    <Property Name="IDEmployee" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="CNP" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Picture" Type="image" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="Flight">
+    <Key>
+      <PropertyRef Name="IDFlight" />
+    </Key>
+    <Property Name="IDFlight" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDAirportFrom" Type="int" Nullable="false" />
+    <Property Name="IDAirportTo" Type="int" Nullable="false" />
+    <Property Name="FlightNumber" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="DepartureDate" Type="date" Nullable="false" />
+    <Property Name="DepartureTime" Type="time" Nullable="false" />
+    <Property Name="ArrivalDate" Type="date" Nullable="false" />
+    <Property Name="ArrivalTime" Type="time" Nullable="false" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="TaxiBooking">
+    <Key>
+      <PropertyRef Name="IDTaxiBooking" />
+    </Key>
+    <Property Name="IDTaxiBooking" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDTaxiCompany" Type="int" Nullable="false" />
+    <Property Name="IDDelegation" Type="int" Nullable="false" />
+    <Property Name="IDFlight" Type="int" Nullable="false" />
+    <Property Name="ReservationDate" Type="date" Nullable="false" />
+    <Property Name="ReservationTime" Type="time" Nullable="false" />
+    <Property Name="PickupAddress" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="DropAddress" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="NumberOfPersons" Type="int" Nullable="false" />
+    <Property Name="PassengersName" Type="varchar" Nullable="false" MaxLength="4000" />
+    <Property Name="Cost" Type="float" />
+    <Property Name="Currency" Type="varchar" MaxLength="100" />
+    <Property Name="Remarks" Type="varchar" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <EntityType Name="TaxiCompany">
+    <Key>
+      <PropertyRef Name="IDTaxiCompany" />
+    </Key>
+    <Property Name="IDTaxiCompany" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Address" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="Rating" Type="varchar" MaxLength="1000" />
+    <Property Name="FlagDel" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Delegation_CostCenter">
+    <End Role="CostCenter" Type="AirportTransfer_TestModel.Store.CostCenter" Multiplicity="1" />
+    <End Role="Delegation" Type="AirportTransfer_TestModel.Store.Delegation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CostCenter">
+        <PropertyRef Name="IDCostCenter" />
+      </Principal>
+      <Dependent Role="Delegation">
+        <PropertyRef Name="IDCostCenter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Delegation_Employee">
+    <End Role="Employee" Type="AirportTransfer_TestModel.Store.Employee" Multiplicity="1" />
+    <End Role="Delegation" Type="AirportTransfer_TestModel.Store.Delegation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="IDEmployee" />
+      </Principal>
+      <Dependent Role="Delegation">
+        <PropertyRef Name="IDEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight_Airport">
+    <End Role="Airport" Type="AirportTransfer_TestModel.Store.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="AirportTransfer_TestModel.Store.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="IDAirport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="IDAirportFrom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight_Airport1">
+    <End Role="Airport" Type="AirportTransfer_TestModel.Store.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="AirportTransfer_TestModel.Store.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="IDAirport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="IDAirportTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_Delegation">
+    <End Role="Delegation" Type="AirportTransfer_TestModel.Store.Delegation" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransfer_TestModel.Store.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Delegation">
+        <PropertyRef Name="IDDelegation" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDDelegation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_Flight">
+    <End Role="Flight" Type="AirportTransfer_TestModel.Store.Flight" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransfer_TestModel.Store.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="IDFlight" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDFlight" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_TaxiCompany">
+    <End Role="TaxiCompany" Type="AirportTransfer_TestModel.Store.TaxiCompany" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransfer_TestModel.Store.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaxiCompany">
+        <PropertyRef Name="IDTaxiCompany" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDTaxiCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

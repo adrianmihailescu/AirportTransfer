@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AirportTransferModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="AirportTransferEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AirLine" EntityType="AirportTransferModel.AirLine" />
+    <EntitySet Name="Airport" EntityType="AirportTransferModel.Airport" />
+    <EntitySet Name="CostCenter" EntityType="AirportTransferModel.CostCenter" />
+    <EntitySet Name="Delegation" EntityType="AirportTransferModel.Delegation" />
+    <EntitySet Name="Employee" EntityType="AirportTransferModel.Employee" />
+    <EntitySet Name="Flight" EntityType="AirportTransferModel.Flight" />
+    <EntitySet Name="TaxiBooking" EntityType="AirportTransferModel.TaxiBooking" />
+    <EntitySet Name="TaxiCompany" EntityType="AirportTransferModel.TaxiCompany" />
+    <AssociationSet Name="FK_Flight_Airline" Association="AirportTransferModel.FK_Flight_Airline">
+      <End Role="AirLine" EntitySet="AirLine" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight_Airport" Association="AirportTransferModel.FK_Flight_Airport">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Flight_Airport1" Association="AirportTransferModel.FK_Flight_Airport1">
+      <End Role="Airport" EntitySet="Airport" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Delegation_CostCenter" Association="AirportTransferModel.FK_Delegation_CostCenter">
+      <End Role="CostCenter" EntitySet="CostCenter" />
+      <End Role="Delegation" EntitySet="Delegation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Delegation_Employee" Association="AirportTransferModel.FK_Delegation_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Delegation" EntitySet="Delegation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_Delegation" Association="AirportTransferModel.FK_TaxiBooking_Delegation">
+      <End Role="Delegation" EntitySet="Delegation" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_Flight" Association="AirportTransferModel.FK_TaxiBooking_Flight">
+      <End Role="Flight" EntitySet="Flight" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaxiBooking_TaxiCompany" Association="AirportTransferModel.FK_TaxiBooking_TaxiCompany">
+      <End Role="TaxiCompany" EntitySet="TaxiCompany" />
+      <End Role="TaxiBooking" EntitySet="TaxiBooking" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AirLine">
+    <Key>
+      <PropertyRef Name="IDAirLine" />
+    </Key>
+    <Property Name="IDAirLine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="WebSite" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Flight" Relationship="AirportTransferModel.FK_Flight_Airline" FromRole="AirLine" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="Airport">
+    <Key>
+      <PropertyRef Name="IDAirport" />
+    </Key>
+    <Property Name="IDAirport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="1103" Unicode="false" FixedLength="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="ContactPhone" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Remarks" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="DepartureFlight" Relationship="AirportTransferModel.FK_Flight_Airport" FromRole="Airport" ToRole="Flight" />
+    <NavigationProperty Name="ArrivalFlight" Relationship="AirportTransferModel.FK_Flight_Airport1" FromRole="Airport" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="CostCenter">
+    <Key>
+      <PropertyRef Name="IDCostCenter" />
+    </Key>
+    <Property Name="IDCostCenter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="ProjectCode" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="BusinessUnit" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="Reason" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Delegation" Relationship="AirportTransferModel.FK_Delegation_CostCenter" FromRole="CostCenter" ToRole="Delegation" />
+  </EntityType>
+  <EntityType Name="Delegation">
+    <Key>
+      <PropertyRef Name="IDDelegation" />
+    </Key>
+    <Property Name="IDDelegation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDCostCenter" Type="Int32" Nullable="false" />
+    <Property Name="IDEmployee" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" />
+    <Property Name="Country" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Details" Type="String" MaxLength="4000" Unicode="false" FixedLength="false" />
+    <Property Name="TaxiReservationMade" Type="Boolean" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="CostCenter" Relationship="AirportTransferModel.FK_Delegation_CostCenter" FromRole="Delegation" ToRole="CostCenter" />
+    <NavigationProperty Name="Employee" Relationship="AirportTransferModel.FK_Delegation_Employee" FromRole="Delegation" ToRole="Employee" />
+    <NavigationProperty Name="TaxiBooking" Relationship="AirportTransferModel.FK_TaxiBooking_Delegation" FromRole="Delegation" ToRole="TaxiBooking" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="IDEmployee" />
+    </Key>
+    <Property Name="IDEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="CNP" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Delegation" Relationship="AirportTransferModel.FK_Delegation_Employee" FromRole="Employee" ToRole="Delegation" />
+  </EntityType>
+  <EntityType Name="Flight">
+    <Key>
+      <PropertyRef Name="IDFlight" />
+    </Key>
+    <Property Name="IDFlight" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDAirline" Type="Int32" Nullable="false" />
+    <Property Name="IDAirportFrom" Type="Int32" Nullable="false" />
+    <Property Name="IDAirportTo" Type="Int32" Nullable="false" />
+    <Property Name="FlightNumber" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="DepartureDate" Type="DateTime" Nullable="false" />
+    <Property Name="DepartureTime" Type="Time" Nullable="false" />
+    <Property Name="ArrivalDate" Type="DateTime" Nullable="false" />
+    <Property Name="ArrivalTime" Type="Time" Nullable="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="AirLine" Relationship="AirportTransferModel.FK_Flight_Airline" FromRole="Flight" ToRole="AirLine" />
+    <NavigationProperty Name="DepartureAirport" Relationship="AirportTransferModel.FK_Flight_Airport" FromRole="Flight" ToRole="Airport" />
+    <NavigationProperty Name="ArrivalAirport" Relationship="AirportTransferModel.FK_Flight_Airport1" FromRole="Flight" ToRole="Airport" />
+    <NavigationProperty Name="TaxiBooking" Relationship="AirportTransferModel.FK_TaxiBooking_Flight" FromRole="Flight" ToRole="TaxiBooking" />
+  </EntityType>
+  <EntityType Name="TaxiBooking">
+    <Key>
+      <PropertyRef Name="IDTaxiBooking" />
+    </Key>
+    <Property Name="IDTaxiBooking" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDTaxiCompany" Type="Int32" Nullable="false" />
+    <Property Name="IDDelegation" Type="Int32" Nullable="false" />
+    <Property Name="IDFlight" Type="Int32" Nullable="false" />
+    <Property Name="ReservationDate" Type="DateTime" Nullable="false" />
+    <Property Name="ReservationTime" Type="Time" Nullable="false" />
+    <Property Name="PickupAddress" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="DropAddress" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="NumberOfPersons" Type="Int32" Nullable="false" />
+    <Property Name="PassengersName" Type="String" Nullable="false" MaxLength="4000" Unicode="false" FixedLength="false" />
+    <Property Name="Cost" Type="Double" />
+    <Property Name="Currency" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Remarks" Type="String" MaxLength="4000" Unicode="false" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="Delegation" Relationship="AirportTransferModel.FK_TaxiBooking_Delegation" FromRole="TaxiBooking" ToRole="Delegation" />
+    <NavigationProperty Name="Flight" Relationship="AirportTransferModel.FK_TaxiBooking_Flight" FromRole="TaxiBooking" ToRole="Flight" />
+    <NavigationProperty Name="TaxiCompany" Relationship="AirportTransferModel.FK_TaxiBooking_TaxiCompany" FromRole="TaxiBooking" ToRole="TaxiCompany" />
+  </EntityType>
+  <EntityType Name="TaxiCompany">
+    <Key>
+      <PropertyRef Name="IDTaxiCompany" />
+    </Key>
+    <Property Name="IDTaxiCompany" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Rating" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="Remarks" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="WebSite" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="FlagDel" Type="Boolean" />
+    <NavigationProperty Name="TaxiBooking" Relationship="AirportTransferModel.FK_TaxiBooking_TaxiCompany" FromRole="TaxiCompany" ToRole="TaxiBooking" />
+  </EntityType>
+  <Association Name="FK_Flight_Airline">
+    <End Role="AirLine" Type="AirportTransferModel.AirLine" Multiplicity="1" />
+    <End Role="Flight" Type="AirportTransferModel.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AirLine">
+        <PropertyRef Name="IDAirLine" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="IDAirline" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight_Airport">
+    <End Role="Airport" Type="AirportTransferModel.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="AirportTransferModel.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="IDAirport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="IDAirportFrom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Flight_Airport1">
+    <End Role="Airport" Type="AirportTransferModel.Airport" Multiplicity="1" />
+    <End Role="Flight" Type="AirportTransferModel.Flight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Airport">
+        <PropertyRef Name="IDAirport" />
+      </Principal>
+      <Dependent Role="Flight">
+        <PropertyRef Name="IDAirportTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Delegation_CostCenter">
+    <End Role="CostCenter" Type="AirportTransferModel.CostCenter" Multiplicity="1" />
+    <End Role="Delegation" Type="AirportTransferModel.Delegation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CostCenter">
+        <PropertyRef Name="IDCostCenter" />
+      </Principal>
+      <Dependent Role="Delegation">
+        <PropertyRef Name="IDCostCenter" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Delegation_Employee">
+    <End Role="Employee" Type="AirportTransferModel.Employee" Multiplicity="1" />
+    <End Role="Delegation" Type="AirportTransferModel.Delegation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="IDEmployee" />
+      </Principal>
+      <Dependent Role="Delegation">
+        <PropertyRef Name="IDEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_Delegation">
+    <End Role="Delegation" Type="AirportTransferModel.Delegation" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransferModel.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Delegation">
+        <PropertyRef Name="IDDelegation" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDDelegation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_Flight">
+    <End Role="Flight" Type="AirportTransferModel.Flight" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransferModel.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Flight">
+        <PropertyRef Name="IDFlight" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDFlight" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaxiBooking_TaxiCompany">
+    <End Role="TaxiCompany" Type="AirportTransferModel.TaxiCompany" Multiplicity="1" />
+    <End Role="TaxiBooking" Type="AirportTransferModel.TaxiBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaxiCompany">
+        <PropertyRef Name="IDTaxiCompany" />
+      </Principal>
+      <Dependent Role="TaxiBooking">
+        <PropertyRef Name="IDTaxiCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

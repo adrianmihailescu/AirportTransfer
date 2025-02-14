@@ -1,0 +1,30 @@
+USE [AirportTransfer]
+GO
+/****** Object:  StoredProcedure [dbo].[GetScheduledDelegationsForToday]    Script Date: 05/15/2013 12:29:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[GetScheduledDelegationsForToday]
+(
+@data datetime
+)
+as
+begin
+	select
+	d.EndDate
+	, d.IDDelegation
+	into #t	
+	from delegation d
+
+	where
+	cast(d.EndDate as date) = cast(@data as date) and isnull(d.FlagDel, 0) = 0
+	
+	
+	select
+	EndDate
+	, count(IDDelegation) [total] from #t
+	group by EndDate
+	
+	drop table #t
+end

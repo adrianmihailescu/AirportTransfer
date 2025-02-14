@@ -1,0 +1,36 @@
+USE [AirportTransfer]
+GO
+/****** Object:  StoredProcedure [dbo].[GetAirLinePreviewImage]    Script Date: 06/06/2013 18:25:55 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetAirLinePreviewImage](@id int)
+-- returns varbinary(max)
+as
+begin
+
+declare @result varbinary(max)
+	
+	set @result = (select top 1 [Picture] from [AirLine] where IDAirLine = @id)	
+	select @result result
+end
+
+
+USE [AirportTransfer]
+GO
+/****** Object:  StoredProcedure [dbo].[GetAirLinePreviewImageByName]    Script Date: 06/06/2013 18:26:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetAirLinePreviewImageByName](@airline_name varchar(1000))
+-- returns varbinary(max)
+as
+begin
+
+declare @result varbinary(max)
+	
+	set @result = (select top 1 [Picture] from [AirLine] where name = @airline_name)	
+	select @result result
+end

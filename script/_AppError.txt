@@ -1,0 +1,33 @@
+USE [AirportTransfer]
+GO
+
+/****** Object:  Table [dbo].[_AppError]    Script Date: 05/17/2013 11:37:11 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[_AppError](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Url] [varchar](max) NULL,
+	[Message] [varchar](max) NULL,
+	[InnerException] [varchar](max) NULL,
+	[StackTrace] [varchar](max) NULL,
+	[Source] [varchar](max) NULL,
+ CONSTRAINT [PK__AppErrors] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+

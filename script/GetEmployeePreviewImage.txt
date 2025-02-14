@@ -1,0 +1,17 @@
+USE [AirportTransfer]
+GO
+/****** Object:  StoredProcedure [dbo].[GetEmployeePreviewImage]    Script Date: 04/16/2013 17:00:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetEmployeePreviewImage](@id int)
+-- returns varbinary(max)
+as
+begin
+
+declare @result varbinary(max)
+	
+	set @result = (select top 1 [Picture] from [Employee] where IDEmployee = @id)	
+	select @result result
+end

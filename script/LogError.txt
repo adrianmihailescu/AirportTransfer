@@ -1,0 +1,36 @@
+USE [AirportTransfer]
+GO
+
+/****** Object:  StoredProcedure [dbo].[LogError]    Script Date: 05/17/2013 11:37:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [dbo].[LogError]
+(
+	@Date datetime
+	, @Url varchar(max)
+	, @Message varchar(max)
+	, @InnerException varchar(max)
+	, @StackTrace varchar(max)
+	, @Source varchar(max)
+)
+
+as
+begin
+	insert into _AppError
+	values
+	(
+		getdate()
+		, @Url
+		, @Message
+		, @InnerException
+		, @StackTrace
+		, @Source
+	)
+end
+GO
+
+
